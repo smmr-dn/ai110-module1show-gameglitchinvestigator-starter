@@ -4,9 +4,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 1. What was broken when you started?
 
-- What did the game look like the first time you ran it?
-- List at least two concrete bugs you noticed at the start  
-  (for example: "the hints were backwards").
+The hints do not match the secret number. When the guesses go to the bounds (1 or 100), the hints still say "Go LOWER" or "Go HIGHER". Also, the guess attempts counter updates slower than it should be. For example, if I submit the first guess, the counter still says I have 7 attempts left. Not until do I submit the second guess, does the counter updates to 6.
 
 **Bug Reproduction Log**
 
@@ -14,16 +12,17 @@ Document at least 3 bugs you found. Add rows as needed.
 
 | Input | Expected Behavior | Actual Behavior | Console Output / Error |
 |-------|-------------------|-----------------|------------------------|
-| | | | |
-| | | | |
-| | | | |
+|Guess submitted | Attempt left to show 6 | Attempt left shows 7 | None |
+| 78 (Secret number is 76) | Shows "Go LOWER" | Shows "Go HIGHER" | None |
+| 71 (Secret number is 76) | Shows "Go HIGHER" | Shows "Go LOWER" | None |
+| Reset the game | The score says "0" | The score says "-5" | None |
 
 ---
 
 ## 2. How did you use AI as a teammate?
 
-- Which AI tools did you use on this project (for example: ChatGPT, Gemini, Copilot)?
-- Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
+I used Claude Code for this project. One example that the AI suggestion was correct was that the "New Game" handler at app.py and only "attempts" and "secret" were reset, but "score", "status", and "history" were never cleared. It said whatever score the player had at the end of the previous game carried over into the new one.
+
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
 
 ---
