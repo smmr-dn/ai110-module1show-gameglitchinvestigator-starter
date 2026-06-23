@@ -41,13 +41,12 @@ I tried guessing on Normal difficulty and the random method gave me the number 4
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+The Python script is a recipe that gets cooked from scratch every time something happens on the page such as a button click, or a text input. Streamlit just re-runs the entire script top to bottom. There's no "event handler" that fires once; the whole file executes again. Streamlit gives you st.session_state — a dictionary that survives between reruns for a given browser session. Anything you store there persists.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+One habit that I want to keep for my future developer is expecting an outcome or a solution for the bugs that I am trying to fix instead of listening to exactly what the agent suggests without reconsidering it.
+
+However, I still have the tendency of relying on Claude for bug identification. Ever since the existence of AI, I have formed a bad habit of not reading the code but asking AI first to summarize first. While the summary is generated, there are parts of it when the agent directly points out the bug, which I tend to take advantage of to not having to understand the code entirely.

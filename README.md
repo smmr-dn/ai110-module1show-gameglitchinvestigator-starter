@@ -25,24 +25,50 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [x] Describe the game's purpose.
+
+  **Game Glitch Investigator** is a number-guessing game built with Streamlit. The player picks a difficulty (Easy: 1–20, Normal: 1–50, Hard: 1–100), then guesses the secret number within a limited number of attempts. After each guess the game returns a "Too High" or "Too Low" hint. The player wins by guessing correctly before running out of attempts, and earns more points the fewer guesses they need.
+
+- [x] Detail which bugs you found.
+
+  | # | Bug | Symptom |
+  |---|-----|---------|
+  | 1 | Secret number re-rolled on every rerun | Secret changed each time the Submit button was clicked, making it impossible to win |
+  | 2 | Inverted hints | Guessing too high showed "Go Higher"; guessing too low showed "Go Lower" |
+  | 3 | Attempt counter off by one | First guess still showed full attempt count; counter only updated on the next submit |
+  | 4 | New Game didn't reset score, status, or history | Score and game-over state carried over from the previous game |
+  | 5 | Enter key didn't submit the form | Players had to click "Submit Guess" with the mouse; pressing Enter did nothing |
+  | 6 | No range validation | Out-of-range numbers (e.g. 0 or 999) were silently accepted |
+  | 7 | Decimals silently truncated | Entering "7.9" was accepted as 7 with no warning |
+  | 8 | Difficulty ranges incorrect | Range boundaries didn't match the intended Easy / Normal / Hard design |
+  | 9 | Scoring formula wrong | Points calculation used `attempt_number + 1` instead of `attempt_number - 1`, under-rewarding early wins |
+
+- [x] Explain what fixes you applied.
+
+  - **Session state for secret** — wrapped `st.session_state.secret` in an `if "secret" not in st.session_state` guard so it is only generated once per game.
+  - **Corrected hint logic** — fixed the comparison in `check_guess`: `guess > secret` now returns "Too High" and `guess < secret` returns "Too Low".
+  - **Attempt counter** — moved the `attempts += 1` increment to happen before the display check so the count is accurate immediately.
+  - **Full state reset on New Game** — added `score`, `status`, and `history` to the reset block alongside `attempts` and `secret`.
+  - **Form + Enter key** — wrapped the input and button in `st.form` so pressing Enter submits the guess.
+  - **Range & decimal validation** — updated `parse_guess(raw, low, high)` to reject decimals ("That is not a whole number.") and out-of-range values ("Enter a number between {low} and {high}.").
+  - **Difficulty ranges** — corrected `get_range_for_difficulty` so Easy = 1–20, Normal = 1–50, Hard = 1–100.
+  - **Scoring formula** — changed `100 - 10 * (attempt_number + 1)` to `100 - 10 * (attempt_number - 1)` so a first-attempt win awards the full 100 points.
 
 ## 📸 Demo Walkthrough
 
 Describe your fixed game in numbered steps so a reader can follow along without watching a video:
 
-1. <!-- Describe this step -->
-2. <!-- Describe this step -->
-3. <!-- Describe this step -->
-4. <!-- Describe this step -->
-5. <!-- Add more steps as needed -->
+1. Choose a game difficulty level.
+2. User enters a number, e.g. 40 for "Normal"
+3. Game returns "Too High".
+4. User enters 35.
+5. Game returns "Too High".
+6. User guesses until the game returns "Correct!".
 
 ## 🧪 Test Results
 
-![alt text](<Screenshot 2026-06-23 at 3.17.24 PM.png>)
+![alt text](<test_results.png>)
 
 ## 🚀 Stretch Features
 
-- [ ] [If you choose to complete Challenge 4, describe the Enhanced UI changes here — a screenshot is optional]
+- [x] Code fences/checks for decimal or out-of-range numbers/guesses. Tests were also added.
