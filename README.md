@@ -39,15 +39,9 @@ Describe your fixed game in numbered steps so a reader can follow along without 
 4. <!-- Describe this step -->
 5. <!-- Add more steps as needed -->
 
-**Screenshot** *(optional)*: <!-- Insert a screenshot of your fixed, winning game here -->
-
 ## 🧪 Test Results
 
-```
-# Paste your pytest output here, e.g.:
-# pytest tests/
-# ========================= X passed in 0.XXs =========================
-```
+![alt text](<Screenshot 2026-06-23 at 3.17.24 PM.png>)
 
 ## 🚀 Stretch Features
 
